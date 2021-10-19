@@ -1,118 +1,48 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var pwLength
-var pwUpper
-var pwLower
-var pwSpecial
-var pwNumeric
 
-
-// When user clicks generateBtn
-
-// document.getElementById("generateBtn").onclick = function() {
-//  getLength()
-// };
-
-generateBtn.addEventListener("click", writePassword)
-
-
-function generatePassword(
-  // parameters we pass to the function
-  pwLength,
-  pwUpper,
-  pwLower,
-  pwSpecial,
-  pwNumeric,
-)
-
-// Series of prompts with funtions that create the password
-// Window requesting user to define a length of password
-
-// pwLength
-let pwLength = function() {
-  var value = "";
-
-  while (value === "" || value === null) {
-    value = window.prompt('Password Length')
-  }
-  console.log("Your pwLength is" + value);
-  return value;
-};
-
-
-
-let pwLength = window.prompt('Password Length').value;
-// 128 > pwLength > 8
-if (pwLength > 128) {
-  window.alert('Length too long! Must be less than 128!')
-} else if (pwLength < 8) {
-  window.alert('Length too short! Much be more than 8!')
-  return pwLength();
-} 
-  else {
-  let pwUpper = window.confirm('Uppercase?');
-  let pwLower = window.confirm('lowercase?');
-  let pwNumeric = window.confirm('Numbers');
-  let pwSpecial = window.confirm('Special Characters?');
+var allCharacters = {
+  lower: "abcdefghijklmnopqrstuvwxyz",
+  upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  number: "1234567890",
+  special: "!@#$%^&*()_-+="
 }
 
-  // pwSpecial
-  // specialArr = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=']
-  // for (let i = o; i < specialArr.length; i++) {
-  
+function generatePassword() {
+  var password = ""
+  var newPW = ""
+  var pwLength = window.prompt("Between 8 and 128, how long would you like your password to be?")
 
-  // pwUpper
-  function getRandomUpper() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+  while ((pwLength < 8) || (pwLength > 128) || (isNaN(pwLength) === true)) {
+    alert("Your password must contain between 8 and 128 characters and has to be entered as a number")
+    pwLength = window.prompt("Between 8 and 128, how long would you like your password to be?")
   }
 
-  // pwLower
-  function getRandomLower() {
-    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+  var pwLower = window.confirm("Would you like lowercase characters?")
+  var pwUpper = window.confirm("Would you like uppercase characters?")
+  var pwNumber = window.confirm("Would you like numbers?")
+  var pwSpecial = window.confirm("Would you like special characters?")
+
+  if (pwLower === true) {
+    newPW += allCharacters.lower
   }
-
-  // pwNumeric
-  function getRandomNumeric(){
-    return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+  if (pwUpper === true) {
+    newPW += allCharacters.upper
   }
-
-  // pwSpecial
-  function getRandomSpecial(){}
-
-  // take from all the characters
-  // randomize the order they appear in the password
-
-  let generatePassword = '';
-
-  const typesCount = lower + upper + number + special
-  // selects all 4
-
-  // types array
-  const typesArr = [{ lower }, { upper }, { number }, { special }].filter(item => Object.values(item)[0]);
-
-  // object
-  // let car = {
-  // key: value,
-  // ex. make: "Toyota"
-  // upper: "G",
-  // lower: 'p',
-  // upecial: '@'
-  // }
-
-  let upper = {
-    key: value,
-    randomUpper1: "G",
+  if (pwNumber === true) {
+    newPW += allCharacters.number
   }
-
-
-  for (let i = 0; i < pwLength; i += typesCount)
-    typesArr.forEach(type => {
-      const funcName = Object.keys(type[0])
-        generatePassword += randomFunc[funcName]();
-    })
+  if (pwSpecial === true) {
+    newPW += allCharacters.special
   }
+  console.log(newPW)
 
-  const finalPW = generatePassword.slice(0, pwLength)
+  for (var i = 0; i < pwLength; i++) {
+    password += newPW.charAt(Math.floor(Math.random() * newPW.length))
+  }
+  return password
+
+}
 
 // Write password to the #password input
 function writePassword() {
@@ -120,7 +50,8 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  return
+
 }
 
-// generatePassword();
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
