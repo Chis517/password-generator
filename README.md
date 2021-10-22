@@ -18,7 +18,7 @@ This script generates a password with lowercase, uppercase, numeric and/or speci
 ![link](https://github.com/Chis517/password-generator.git)
 
 * [SSH of repo]
-git@github.com:Chis517/password-generator.git
+(git@github.com:Chis517/password-generator.git)
 
 * [Screenshot of deployed application]
 ![image](password-generator-image.png)
